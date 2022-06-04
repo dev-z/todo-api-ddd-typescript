@@ -6,11 +6,11 @@ A simple REST API meant for a Todo App. Written in Typescript, structured using 
 
 The project code base is mainly located within the `src` folder. This folder is divided in:
 
-- `domain`      - business definitions of types and use-cases
-- `adapters`    - adapters for the repos defined in the domain layer
-- `interfaces`  - interfaces for the outside world to execute your use-cases, for example http interface for exposing your use-cases via HTTP endpoints
-- `mocks`       - mock types and repos to be used for testing
-- `utils`       - shared code base
+- `domain` - business definitions of types and use-cases
+- `adapters` - adapters for the repos defined in the domain layer
+- `interfaces` - interfaces for the outside world to execute your use-cases, for example http interface for exposing your use-cases via HTTP endpoints
+- `mocks` - mock types and repos to be used for testing
+- `utils` - shared code base
 
 ```
 .
@@ -39,6 +39,7 @@ The project code base is mainly located within the `src` folder. This folder is 
 │   │       ├── health
 │   │       │   ├── handler.ts
 │   │       │   └── main.ts
+│   │       │
 │   │       ├── todo
 │   │       │   ├── post-lists
 │   │       │   │   ├── handler.ts
@@ -47,6 +48,7 @@ The project code base is mainly located within the `src` folder. This folder is 
 │   │       │   │   ├── handler.ts
 │   │       │   │   └── main.ts
 │   │       │   └── others
+│   │       │
 │   │       └── utils               # Code specific for lambda http interfaces only
 │   │           ├── capture-context.ts
 │   │           └── with-logger.ts
@@ -54,7 +56,7 @@ The project code base is mainly located within the `src` folder. This folder is 
 │   └── utils                       # Shared code
 │   │   └── logger.ts
 │   └── version.ts
-│       
+│
 │
 ├── package.json
 ├── serverless.ts               # Serverless service file
@@ -73,9 +75,10 @@ For detailed instructions, please refer to the [documentation](https://www.serve
 
 - node 14+
 - npm 8+
-- docker 20.10.13 + [For local development only]
+- docker 20.10.13 + [If you decide to run your DB locally]
 
 ### Local setup
+
 ```bash
 # Clone the repo
 git clone https://github.com/dev-z/todo-api-ddd-typescript.git
@@ -89,9 +92,22 @@ cp env.sample .env
 npm install
 ```
 
+### DB setup
+
+Read about the DB setup at [./src/adapters/postgres/README.md](./src/adapters/postgres/README.md)
+
 ### Running locally
 
-TODO
+```bash
+# Follow the next steps only if you are running a Postgres DB locally
+# Instantiate a local DB
+npm run run-db
+# Apply migrations
+npm run apply-migrations:local
+
+# Start server
+npm start
+```
 
 ## Testing
 

@@ -1,11 +1,15 @@
 export type Item = {
   id: string;
   name: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type List = {
   id: string;
   name: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export interface ListsRepository {

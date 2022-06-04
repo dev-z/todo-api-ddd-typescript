@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "engines": {
     "node": ">=14.15.0"
   },
@@ -21,7 +18,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "json-schema-to-ts": "^1.5.0",
     "prettier": "^2.6.2",
-    "serverless": "^3.0.0",
+    "serverless": "^3.19.0",
     "serverless-esbuild": "^1.23.3",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.9.0",
@@ -30,6 +27,15 @@
   "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
   "license": "MIT",
   "dependencies": {
+    "knex": "^2.1.0",
+    "nanoid": "^3.3.4",
+    "pg": "^8.7.3",
     "winston": "^3.7.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run-db": "docker run -d --rm --name postgres -e POSTGRES_PASSWORD=password -p 5432:5432 postgres:12.8-alpine",
+    "kill-db": "docker kill postgres",
+    "apply-migrations:local": "NODE_ENV=local npx knex migrate:latest --knexfile ./src/adapters/postgres/knexfile.ts"
   }
 }
