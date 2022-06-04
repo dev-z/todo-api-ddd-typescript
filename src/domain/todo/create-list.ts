@@ -15,7 +15,7 @@ export type Input = {
 
 export type CreateList = (input: Input) => Promise<List>;
 
-export default function createListAction(deps: Dependencies): CreateList {
+export default function createCreateListAction(deps: Dependencies): CreateList {
   const logger = createLogger("create-list");
   return async (input: Input) => {
     const { metadata } = input;
@@ -26,12 +26,13 @@ export default function createListAction(deps: Dependencies): CreateList {
         name: input.list.name,
       });
       return list;
-    } catch (listErr) {
+    } catch (listRepoErr) {
       logger.error("failed to create list", {
         actor: metadata.actor,
-        err: (<Error>listErr).message,
+        err: (<Error>listRepoErr).message,
         name: input.list.name,
       });
+      throw listRepoErr;
     }
   };
 }

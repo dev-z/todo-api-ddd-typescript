@@ -10,8 +10,8 @@ export type List = {
 
 export interface ListsRepository {
   create(name: string): Promise<List>;
-  list(): Promise<List[]>;
-  getItems(listId: string): Promise<Item[]>;
+  list(count: number, offset: number): Promise<List[]>;
+  getItems(listId: string, count: number, offset: number): Promise<Item[]>;
   addItem(listId: string, itemName: string): Promise<Item>;
   removeItem(itemId: string): Promise<string>;
 }
