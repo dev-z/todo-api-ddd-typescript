@@ -1,4 +1,4 @@
-# Serverless - AWS Node.js Typescript
+# TODO-API: A Serverless, Domain Driven REST API
 
 A simple REST API meant for a Todo App. Written in Typescript, structured using DDD principles and meant to be deployed in a serverless infrastructure using the [Serverless framework](https://www.serverless.com/)
 
