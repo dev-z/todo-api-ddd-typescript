@@ -31,7 +31,8 @@ The project code base is mainly located within the `src` folder. This folder is 
 │   │       └── errors.ts
 │   │
 │   ├── adapters                    # Adapters for your repositories
-│   │   └── pg
+│   │   └── postgres
+│   │       ├── migrations
 │   │       └── todo.ts             # Postgres adapter
 │   │
 │   ├── interfaces                  # Interface for the outside world

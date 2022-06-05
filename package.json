@@ -10,6 +10,7 @@
     "@serverless/typescript": "^3.0.0",
     "@types/aws-lambda": "^8.10.71",
     "@types/node": "^14.14.25",
+    "@types/serverless": "^3.12.7",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
     "esbuild": "^0.14.11",
@@ -27,6 +28,7 @@
   "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
   "license": "MIT",
   "dependencies": {
+    "ajv": "^8.11.0",
     "knex": "^2.1.0",
     "nanoid": "^3.3.4",
     "pg": "^8.7.3",
