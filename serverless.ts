@@ -3,7 +3,7 @@ import type { Serverless } from "serverless/aws";
 const serverlessConfiguration: Serverless = {
   service: "todo-api-ddd-typescript",
   frameworkVersion: "3",
-  plugins: ["serverless-esbuild"],
+  plugins: ["serverless-esbuild", "serverless-offline"],
   provider: {
     name: "aws",
     runtime: "nodejs14.x",
@@ -22,18 +22,35 @@ const serverlessConfiguration: Serverless = {
       ACTOR_HEADER_NAME: "${env:ACTOR_HEADER_NAME}",
       TODO_DATABASE_URL: "${env:TODO_DATABASE_URL}",
     },
+    versionFunctions: false,
   },
   package: { individually: true },
+  useDotenv: true,
   custom: {
     esbuild: {
       bundle: true,
       minify: false,
       sourcemap: true,
-      exclude: ["aws-sdk"],
+      exclude: [
+        "aws-sdk",
+        "better-sqlite3",
+        "tedious",
+        "oracledb",
+        "mysql",
+        "sqlite3",
+        "pg-native",
+        "mysql2",
+        "pg-query-stream",
+      ],
       target: "node14",
       define: { "require.resolve": undefined },
       platform: "node",
       concurrency: 10,
+    },
+    "serverless-offline": {
+      httpPort: "8000",
+      lambdaPort: "8002",
+      noPrependStageInUrl: true,
     },
   },
   functions: {

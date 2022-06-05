@@ -33,6 +33,14 @@ export default function createHandler(
 ): APIGatewayProxyHandler {
   return async (event, context) => {
     const ctx = captureEventContext(event.headers, context);
+    if (!ctx.actor) {
+      return response(
+        StatusCodes.BAD_REQUEST,
+        {},
+        "header x-actor is required",
+        ctx
+      );
+    }
     let input: Input;
     try {
       input = JSON.parse(event.body || "") as Input;
