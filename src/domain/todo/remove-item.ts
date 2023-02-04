@@ -1,6 +1,5 @@
 import createLogger from "@src/utils/logger";
 import { ListsRepository } from "@src/domain/types/todo";
-import { NotFoundError } from "@src/domain/types/errors";
 
 export interface Dependencies {
   listsRepo: ListsRepository;
@@ -28,19 +27,11 @@ export default function createRemoveItemAction(deps: Dependencies): RemoveItem {
       });
       return status;
     } catch (listRepoErr) {
-      if (listRepoErr instanceof NotFoundError) {
-        logger.error("not found", {
-          actor: metadata.actor,
-          err: (<Error>listRepoErr).message,
-          id,
-        });
-      } else {
-        logger.error("failed to remove item", {
-          actor: metadata.actor,
-          err: (<Error>listRepoErr).message,
-          id,
-        });
-      }
+      logger.error("failed to remove item", {
+        actor: metadata.actor,
+        err: (<Error>listRepoErr).message,
+        id,
+      });
       throw listRepoErr;
     }
   };
