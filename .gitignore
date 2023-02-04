@@ -13,3 +13,6 @@ node_modules
 # IDE
 .vscode/*
 !.vscode/extensions.json
+
+# coverage
+coverage

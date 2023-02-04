@@ -1,0 +1,46 @@
+name: deployment-pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: node:14-alpine3.16
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: yarn install --ignore-scripts
+      - name: Lint
+        run: yarn lint
+      - name: Test
+        run: CI_TESTING=true yarn test-ci
+        env:
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432
+      - name: Collect test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: junit.xml, coverage/cobertura-coverage.xml

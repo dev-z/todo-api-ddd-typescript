@@ -1,6 +1,5 @@
 import createLogger from "@src/utils/logger";
 import { ListsRepository, Item } from "@src/domain/types/todo";
-import { NotFoundError } from "@src/domain/types/errors";
 
 export interface Dependencies {
   listsRepo: ListsRepository;
@@ -16,10 +15,10 @@ export type Input = {
   };
 };
 
-export type GetItems = (input: Input) => Promise<Item[]>;
+export type ListItems = (input: Input) => Promise<Item[]>;
 
-export default function createListListsAction(deps: Dependencies): GetItems {
-  const logger = createLogger("get-items");
+export default function createListItemsAction(deps: Dependencies): ListItems {
+  const logger = createLogger("list-items");
   return async (input: Input) => {
     const { listId, count, offset, metadata } = input;
     try {
@@ -32,21 +31,13 @@ export default function createListListsAction(deps: Dependencies): GetItems {
       });
       return items;
     } catch (listRepoErr) {
-      if (listRepoErr instanceof NotFoundError) {
-        logger.error("list not found", {
-          actor: metadata.actor,
-          err: (<Error>listRepoErr).message,
-          listId,
-        });
-      } else {
-        logger.error("failed to get items", {
-          actor: metadata.actor,
-          err: (<Error>listRepoErr).message,
-          listId,
-          count,
-          offset,
-        });
-      }
+      logger.error("failed to get items", {
+        actor: metadata.actor,
+        err: (<Error>listRepoErr).message,
+        listId,
+        count,
+        offset,
+      });
       throw listRepoErr;
     }
   };

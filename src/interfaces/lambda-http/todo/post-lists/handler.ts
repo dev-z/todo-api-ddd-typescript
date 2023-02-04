@@ -61,9 +61,7 @@ export default function createHandler(
       );
     }
     const createListInput: CreateListInput = {
-      list: {
-        name: input.name,
-      },
+      name: input.name,
       metadata: ctx,
     };
     try {
