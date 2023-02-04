@@ -12,7 +12,7 @@ function createContext() {
   };
 }
 
-describe("list-lists", () => {
+describe("remove-item", () => {
   test("should successfully remove an item from a list", async () => {
     const ctx = createContext();
     const input = {
