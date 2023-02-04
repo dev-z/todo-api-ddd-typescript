@@ -46,6 +46,10 @@
     "kill-db": "docker kill postgres",
     "apply-migrations:local": "NODE_ENV=local npx knex migrate:latest --knexfile ./src/adapters/postgres/knexfile.ts",
     "test": "jest --testMatch '**/*(?<!api|it).test.ts' --coverage",
-    "test:all": "yarn jest --coverage"
+    "test:it": "jest --testMatch '**/*.it.test.ts' --coverage",
+    "test:api": "jest --testMatch '**/*.api.test.ts' --coverage",
+    "test:all": "yarn jest --coverage",
+    "test-ci": "yarn test:all --collectCoverage true --runInBand --reporters=default --reporters=jest-junit",
+    "lint": "npx eslint . --max-warnings=0 && npx tsc --noEmit -p ."
   }
 }
