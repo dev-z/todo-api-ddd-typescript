@@ -4,12 +4,12 @@ import {
   CreateList,
   Input as CreateListInput,
 } from "@src/domain/todo/create-list";
-import { captureEventContext } from "@src/interfaces/lambda-http/utils/capture-context";
+import { captureEventContext } from "@src/interfaces/rest/utils/capture-context";
 import {
   response,
   StatusCodes,
   mapError,
-} from "@src/interfaces/lambda-http/utils/response";
+} from "@src/interfaces/rest/utils/response";
 
 export interface Input {
   name: string;

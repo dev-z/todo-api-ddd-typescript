@@ -54,8 +54,8 @@ const serverlessConfiguration: Serverless = {
     },
   },
   functions: {
-    "api-create-list": {
-      handler: "src/interfaces/lambda-http/todo/post-lists/main.handler",
+    api_create_list: {
+      handler: "src/interfaces/rest/lists/post/main.handler",
       events: [
         {
           http: {
