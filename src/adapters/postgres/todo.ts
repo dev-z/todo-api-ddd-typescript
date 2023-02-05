@@ -2,6 +2,7 @@ import { Knex } from "knex";
 import { nanoid } from "nanoid";
 
 import { Item, List, ListsRepository } from "@src/domain/types/todo";
+import { NotFoundError } from "@src/domain/types/errors";
 
 type ListRecord = {
   id: string;
@@ -23,10 +24,17 @@ const TABLES = {
   ITEMS: "items",
 };
 
+type PostgresError = {
+  readonly code?: string;
+  readonly detail?: string;
+  readonly message: string;
+};
+
 function mapToItem(record: ItemRecord): Item {
   return {
     id: record.id,
     name: record.name,
+    listId: record.list_id,
     createdAt: record.created_at,
     updatedAt: record.updated_at,
   };
@@ -83,15 +91,24 @@ export class PGListsRepository implements ListsRepository {
   }
 
   async addItem(listId: string, itemName: string): Promise<Item> {
-    const [item] = await this.connection<ItemRecord>(TABLES.ITEMS)
-      .insert({
-        id: nanoid(),
-        name: itemName,
-        list_id: listId,
-      })
-      .returning("*");
+    try {
+      const [item] = await this.connection<ItemRecord>(TABLES.ITEMS)
+        .insert({
+          id: nanoid(),
+          name: itemName,
+          list_id: listId,
+        })
+        .returning("*");
 
-    return mapToItem(item);
+      return mapToItem(item);
+    } catch (dbErr) {
+      const pgErr = dbErr as PostgresError;
+      // Refer to https://www.postgresql.org/docs/12/errcodes-appendix.html
+      if (pgErr.code && pgErr.code === "23503") {
+        throw new NotFoundError(`list<${listId}>`);
+      }
+      throw dbErr;
+    }
   }
 
   async removeItem(itemId: string): Promise<string> {
