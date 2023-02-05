@@ -6,7 +6,7 @@ import {
 import {
   EventContext,
   CONTEXT_KEYS,
-} from "@src/interfaces/lambda-http/utils/capture-context";
+} from "@src/interfaces/rest/utils/capture-context";
 
 type ResponseHeader = { [header: string]: string };
 

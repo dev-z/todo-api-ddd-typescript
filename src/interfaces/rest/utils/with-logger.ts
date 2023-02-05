@@ -5,7 +5,7 @@ import {
   Context,
 } from "aws-lambda";
 import createLogger, { Logger } from "@src/utils/logger";
-import { captureEventContext } from "@src/interfaces/lambda-http/utils/capture-context";
+import { captureEventContext } from "@src/interfaces/rest/utils/capture-context";
 
 function mapStatusCode(code: number): string {
   return `http_${Math.floor(code / 100)}xx`;
