@@ -1,6 +1,7 @@
 export type Item = {
   id: string;
   name: string;
+  listId: string;
   createdAt: Date;
   updatedAt: Date;
 };

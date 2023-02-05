@@ -22,12 +22,13 @@ describe("add-item", () => {
       metadata: { requestId: "test1", actor: "jest" },
     };
     ctx.listsRepo.addItem.mockResolvedValueOnce(
-      mockItem({ id: "item1", name: "Lorem" })
+      mockItem({ id: "item1", name: "Lorem", listId: "list1" })
     );
     const res = await ctx.addItem(input);
     expect(ctx.listsRepo.addItem).toHaveBeenCalledWith("list1", "Lorem");
     expect(res.id).toBe("item1");
     expect(res.name).toBe("Lorem");
+    expect(res.listId).toBe("list1");
   });
 
   test("should throw an error if list repository fails", async () => {

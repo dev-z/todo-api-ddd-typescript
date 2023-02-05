@@ -35,10 +35,9 @@ jobs:
       - name: Lint
         run: yarn lint
       - name: Test
-        run: CI_TESTING=true yarn test-ci
+        run: yarn test-ci
         env:
-          POSTGRES_HOST: postgres
-          POSTGRES_PORT: 5432
+          TODO_DATABASE_URL: postgres://postgres:password@postgres:5432
       - name: Collect test results
         uses: actions/upload-artifact@v2
         with:
