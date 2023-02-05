@@ -82,7 +82,7 @@ describe("POST /lists", () => {
     expect(res.body).toContain("must NOT have more than 100 characters");
   });
 
-  test("should return 200 if create fails", async () => {
+  test("should return 500 if create fails", async () => {
     const ctx = createContext();
     ctx.createList.mockRejectedValueOnce(new Error("something went wrong"));
     const res = await invoke(ctx.handler, ctx.event);

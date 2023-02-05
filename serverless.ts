@@ -65,6 +65,17 @@ const serverlessConfiguration: Serverless = {
         },
       ],
     },
+    api_list_lists: {
+      handler: "src/interfaces/rest/lists/get/main.handler",
+      events: [
+        {
+          http: {
+            method: "get",
+            path: "/v1/lists",
+          },
+        },
+      ],
+    },
   },
 };
 
