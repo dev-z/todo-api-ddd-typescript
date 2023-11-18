@@ -74,8 +74,8 @@ For detailed instructions, please refer to the [documentation](https://www.serve
 
 ### Dependencies
 
-- node 14+
-- npm 8+
+- node 20+
+- npm 10+
 - docker 20.10.13 + [If you decide to run your DB locally]
 
 ### Local setup
