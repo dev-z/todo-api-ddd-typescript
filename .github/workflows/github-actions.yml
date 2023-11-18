@@ -11,7 +11,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: node:14-alpine3.16
+    container: node:20-alpine3.17
     services:
       postgres:
         image: postgres
@@ -29,13 +29,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 20
       - name: Install dependencies
-        run: yarn install --ignore-scripts
+        run: npm ci --ignore-scripts
       - name: Lint
-        run: yarn lint
+        run: npm run lint
       - name: Test
-        run: yarn test-ci
+        run: npm run test-ci
         env:
           TODO_DATABASE_URL: postgres://postgres:password@postgres:5432
       - name: Collect test results

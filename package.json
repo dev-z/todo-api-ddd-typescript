@@ -4,7 +4,7 @@
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "engines": {
-    "node": ">=14.15.0"
+    "node": ">=20.9.0"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",
@@ -42,14 +42,14 @@
   },
   "scripts": {
     "start": "npx sls offline --stage local",
-    "run-db": "docker run -d --rm --name postgres -e POSTGRES_PASSWORD=password -p 5432:5432 postgres:12.8-alpine",
+    "run-db": "docker run -d --rm --name postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=todo_local -p 5432:5432 postgres:12.12-alpine",
     "kill-db": "docker kill postgres",
     "apply-migrations:local": "NODE_ENV=local npx knex migrate:latest --knexfile ./src/adapters/postgres/knexfile.ts",
     "test": "jest --testMatch '**/*(?<!api|it).test.ts' --coverage",
     "test:it": "jest --testMatch '**/*.it.test.ts' --coverage",
     "test:api": "jest --testMatch '**/*.api.test.ts' --coverage",
-    "test:all": "yarn jest --coverage",
-    "test-ci": "yarn test:all --collectCoverage true --runInBand --reporters=default --reporters=jest-junit",
+    "test:all": "jest --coverage",
+    "test-ci": "npm run test:all --collectCoverage true --runInBand --reporters=default --reporters=jest-junit",
     "lint": "npx eslint . --max-warnings=0 && npx tsc --noEmit -p ."
   }
 }
