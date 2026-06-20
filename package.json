@@ -22,7 +22,7 @@
     "jest-junit": "^15.0.0",
     "json-schema-to-ts": "^1.5.0",
     "prettier": "^2.6.2",
-    "serverless": "^3.19.0",
+    "serverless": "^4.38.1",
     "serverless-esbuild": "^1.23.3",
     "serverless-offline": "^8.8.0",
     "ts-jest": "^29.0.5",
